@@ -29,26 +29,29 @@ class Browser(QMainWindow, QWebEngineView):
         global width, height
 
         self.setWindowTitle("SpeedClick Browser")
-
         self.setGeometry(0,0,width,height)
 
         self.Ui()
+        self.EngineView()
 
         self.show()
 
     def Ui(self):
-
         widget = QWidget(self)
-
         label = QLabel("Blerion", self)
 
-        self = QWebEngineView()
+    def EngineView(self):
+        self.web = QWebEngineView(self)
 
-        self.load(QUrl("https://google.com"))
+        self.setCentralWidget(self.web)
+        layout = QVBoxLayout()
+        layout.addWidget(self.web)
+        widget = QWidget()
+        widget.setLayout(layout)
+        self.setCentralWidget(widget)
 
+        self.web.load(QUrl("https://google.com"))
 
 App = QApplication(sys.argv)
-
 window = Browser()
-
 sys.exit(App.exec_())
